@@ -9,10 +9,9 @@ module Google
       end
 
       def get_elevation(latitude, longitude, format='json')
-        # location format: {lat,lng}
         url = "https://maps.googleapis.com/maps/api/elevation/#{format}?key=#{api_key}&locations=#{latitude},#{longitude}"
         session = Patron::Session.new
-        session.get(url).body
+        JSON.parse(session.get(url).body)['results'].first['elevation']
       end
 
     end
